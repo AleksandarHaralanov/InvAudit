@@ -1,4 +1,5 @@
 # 🎒 InvAudit
+Audits player inventories for illegal items. Automatically removes any illegal items and prevents players from opening containers while possessing them. Players are also unable to pick up illegal items from the ground or drop them.
 
 ---
 ## 🤝 Contributions, Suggestions, and Issues
