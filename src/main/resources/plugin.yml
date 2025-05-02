@@ -1,0 +1,26 @@
+main: io.github.aleksandarharalanov.invaudit.InvAudit
+version: 1.0.0
+name: InvAudit
+author: Beezle
+website: github.com/AleksandarHaralanov/InvAudit
+description: Audits player inventories for illegal items.
+
+commands:
+  invaudit:
+    description: Main InvAudit command.
+    usage: /<command>
+    aliases: [ia, iaudit, inventoryaudit]
+
+permissions:
+  invaudit.*:
+    children:
+      invaudit.bypass: true
+      invaudit.config: true
+    description: Grants the player all InvAudit permissions.
+    default: op
+  invaudit.bypass:
+    description: Allows the player to bypass the InvAudit protection.
+    default: op
+  invaudit.config:
+    description: Allows the player to reload and modify the InvAudit configuration.
+    default: op
