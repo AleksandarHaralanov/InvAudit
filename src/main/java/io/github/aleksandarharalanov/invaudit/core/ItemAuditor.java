@@ -51,51 +51,53 @@ public final class ItemAuditor {
     }
 
     private static void audit() {
-        Set<Integer> audits = new HashSet<>(ConfigManager.getAudits());
-        if (audits.isEmpty()) {
-            return;
-        }
+        Set<String> audits = new HashSet<>(ConfigManager.getAudits());
+        if (audits.isEmpty()) return;
 
         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-            if (AccessUtil.hasPermission(player, "invaudit.bypass")) {
-                continue;
-            }
+            if (AccessUtil.hasPermission(player, "invaudit.bypass")) continue;
 
             boolean audited = false;
             for (int i = 0; i < player.getInventory().getSize(); i++) {
                 ItemStack item = player.getInventory().getItem(i);
-                if (item == null || item.getType() == Material.AIR || item.getTypeId() == 0) {
-                    continue;
-                }
-
-                if (audits.contains(item.getTypeId())) {
+                if (isAuditedItem(item, audits)) {
                     player.getInventory().clear(i);
                     audited = true;
                     LogUtil.logConsoleInfo(String.format(
-                            "[InvAudit] Removed %dx of ID %d from player %s.",
-                            item.getAmount(), item.getTypeId(), player.getName()));
+                            "[InvAudit] Removed %dx of ID %s from player %s.",
+                            item.getAmount(),
+                            item.getTypeId() + ":" + item.getDurability(),
+                            player.getName()
+                    ));
                 }
             }
 
             if (audited) {
-                player.sendMessage(ColorUtil.translateColorCodes("&c[InvAudit] Inventory cleared of illegal items."));
+                player.sendMessage(ColorUtil.translateColorCodes(
+                        "&c[InvAudit] Inventory cleared of illegal items."));
             }
         }
     }
 
     public static boolean hasIllegalItems(Player player) {
-        Set<Integer> audits = new HashSet<>(ConfigManager.getAudits());
-        Set<Integer> seen = new HashSet<>();
+        Set<String> audits = new HashSet<>(ConfigManager.getAudits());
 
         for (ItemStack item : player.getInventory().getContents()) {
-            if (item == null || item.getTypeId() == 0 || item.getType() == Material.AIR) continue;
-            int id = item.getTypeId();
-            if (seen.contains(id)) continue;
-            seen.add(id);
-
-            if (audits.contains(id)) return true;
+            if (isAuditedItem(item, audits)) return true;
         }
-
         return false;
+    }
+
+    public static boolean isAuditedItem(ItemStack item) {
+        return isAuditedItem(item, new HashSet<>(ConfigManager.getAudits()));
+    }
+
+    public static boolean isAuditedItem(ItemStack item, Set<String> audits) {
+        if (item == null || item.getType() == Material.AIR || item.getTypeId() == 0) return false;
+
+        String id = String.valueOf(item.getTypeId());
+        String idData = id + ":" + item.getDurability();
+
+        return audits.contains(id) || audits.contains(idData);
     }
 }

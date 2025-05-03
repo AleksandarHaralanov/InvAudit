@@ -27,36 +27,40 @@ public final class AuditCommand implements CommandExecutor {
             return true;
         }
 
-        try {
-            int id = Integer.parseInt(args[1]);
-            if (!isValidId(id)) {
-                sender.sendMessage(ColorUtil.translateColorCodes("&c[InvAudit] Invalid ID. No such item exists."));
-                return true;
-            }
+        String input = args[1];
 
-            Set<Integer> audits = new HashSet<>(ConfigManager.getAudits());
-            boolean added = audits.add(id);
-
-            if (!added) {
-                audits.remove(id);
-            }
-
-            String action = added ? "Added" : "Removed";
-            String color = added ? "&a" : "&c";
-            String message = String.format("%s[InvAudit] %s ID %d %s audit list.",
-                    color, action, id, added ? "to" : "from");
-
-            if (sender instanceof Player) {
-                sender.sendMessage(ColorUtil.translateColorCodes(message));
-            }
-
-            LogUtil.logConsoleInfo(ColorUtil.stripColorCodes(ColorUtil.translateColorCodes(message)));
-
-            ConfigManager.setAudits(new ArrayList<>(audits));
-        } catch (NumberFormatException e) {
-            sender.sendMessage(ColorUtil.translateColorCodes("&c[InvAudit] Invalid input. Must be a number."));
+        if (!input.matches("^\\d+(?::\\d+)?$")) {
+            sender.sendMessage(ColorUtil.translateColorCodes("&c[InvAudit] Invalid format. Use ID or ID:Data."));
+            return true;
         }
 
+        String[] parts = input.split(":");
+        int id = Integer.parseInt(parts[0]);
+
+        if (!isValidId(id)) {
+            sender.sendMessage(ColorUtil.translateColorCodes("&c[InvAudit] Invalid item ID."));
+            return true;
+        }
+
+        Set<String> audits = new HashSet<>(ConfigManager.getAudits());
+        boolean added = audits.add(input);
+
+        if (!added) {
+            audits.remove(input);
+        }
+
+        String action = added ? "Added" : "Removed";
+        String color = added ? "&a" : "&c";
+        String message = String.format("%s[InvAudit] %s ID %s %s audit list.",
+                color, action, input, added ? "to" : "from");
+
+        if (sender instanceof Player) {
+            sender.sendMessage(ColorUtil.translateColorCodes(message));
+        }
+
+        LogUtil.logConsoleInfo(ColorUtil.stripColorCodes(ColorUtil.translateColorCodes(message)));
+
+        ConfigManager.setAudits(new ArrayList<>(audits));
         return true;
     }
 

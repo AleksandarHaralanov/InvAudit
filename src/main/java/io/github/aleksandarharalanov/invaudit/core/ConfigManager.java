@@ -27,11 +27,11 @@ public final class ConfigManager {
         InvAudit.getConfig().save();
     }
 
-    public static List<Integer> getAudits() {
-        return InvAudit.getConfig().getIntList("audit-items", new ArrayList<>());
+    public static List<String> getAudits() {
+        return InvAudit.getConfig().getStringList("audit-items", new ArrayList<>());
     }
 
-    public static void setAudits(List<Integer> audits) {
+    public static void setAudits(List<String> audits) {
         InvAudit.getConfig().setProperty("audit-items", audits);
         InvAudit.getConfig().save();
     }
