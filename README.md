@@ -32,7 +32,7 @@ Use PermissionsEx or similar plugins to grant groups the permission, enabling th
 - `/ia reload` - `invaudit.config` - Reload InvAudit configuration.
 - `/ia toggle` - `invaudit.config` - Toggle InvAudit plugin.
 - `/ia timer <ticks>` - `invaudit.config` - Alter clear timer for illegal items.
-- `/ia audit <ID>` - `invaudit.config` - Add/remove illegal items.
+- `/ia audit <ID|ID:Data>` - `invaudit.config` - Add/remove illegal items.
 
 ### Permissions:
 #### Single permissions:
