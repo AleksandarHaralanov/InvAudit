@@ -21,7 +21,7 @@ public final class HelpCommand {
                 "&e/ia reload &7- Reload InvAudit config.",
                 "&e/ia toggle &7- Toggle InvAudit plugin.",
                 "&e/ia timer <ticks> &7- Alter clear timer for illegal items.",
-                "&e/ia audit <ID> &7- Add/remove illegal items."
+                "&e/ia audit <ID|ID:Data> &7- Add/remove illegal items."
         };
 
         for (String message : messages) {
