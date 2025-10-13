@@ -27,19 +27,21 @@ By default, only OPs have permission.
 Use PermissionsEx or similar plugins to grant groups the permission, enabling the commands.
 
 ### Commands:
-- `/ia` - View InvAudit commands.
-- `/ia about` - About InvAudit.
-- `/ia reload` - `invaudit.config` - Reload InvAudit configuration.
-- `/ia toggle` - `invaudit.config` - Toggle InvAudit plugin.
-- `/ia timer <ticks>` - `invaudit.config` - Alter clear timer for illegal items.
-- `/ia audit <ID|ID:Data>` - `invaudit.config` - Add/remove illegal items.
+| Command | Permission | Description |
+|---------|------------|-------------|
+| `/ia` | None | View InvAudit commands. |
+| `/ia about` | None | About InvAudit. |
+| `/ia reload` | `invaudit.config` | Reload InvAudit configuration. |
+| `/ia toggle` | `invaudit.config` | Toggle InvAudit plugin. |
+| `/ia timer <ticks>` | `invaudit.config` | Alter clear timer for illegal items. |
+| `/ia audit <ID\|ID:Data>` | `invaudit.config` | Add/remove illegal items. |
 
 ### Permissions:
-#### Single permissions:
-- `invaudit.bypass` - Allows player to bypass the InvAudit protection.
-- `invaudit.config` - Allows player to reload and modify the InvAudit configuration.
-#### Wildcard permissions:
-- `invaudit.*` - Wildcard permission that grants all permissions.
+| Permission | Description |
+|------------|-------------|
+| `invaudit.bypass` | Allows player to bypass the InvAudit protection. |
+| `invaudit.config` | Allows player to reload and modify the InvAudit configuration. |
+| `invaudit.*` | Wildcard permission that grants all permissions. |
 
 ---
 ## ⚙️ Configuration
