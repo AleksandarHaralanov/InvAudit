@@ -39,9 +39,9 @@ Use PermissionsEx or similar plugins to grant groups the permission, enabling th
 ### Permissions:
 | Permission | Description |
 |------------|-------------|
+| `invaudit.*` | Wildcard permission that grants all permissions. |
 | `invaudit.bypass` | Allows player to bypass the InvAudit protection. |
 | `invaudit.config` | Allows player to reload and modify the InvAudit configuration. |
-| `invaudit.*` | Wildcard permission that grants all permissions. |
 
 ---
 ## ⚙️ Configuration
